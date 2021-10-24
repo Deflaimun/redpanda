@@ -1,0 +1,466 @@
+// Generated documentation. Please do not edit.
+:anchor_prefix: k8s-api
+
+[id="{p}-api-reference"]
+== API Reference
+
+.Packages
+- xref:{anchor_prefix}-redpanda-vectorized-io-v1alpha1[$$redpanda.vectorized.io/v1alpha1$$]
+
+
+[id="{anchor_prefix}-redpanda-vectorized-io-v1alpha1"]
+=== redpanda.vectorized.io/v1alpha1
+
+Package v1alpha1 contains API Schema definitions for the redpanda v1alpha1 API group
+
+.Resource Types
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-cluster[$$Cluster$$]
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterlist[$$ClusterList$$]
+
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-adminapi"]
+==== AdminAPI 
+
+AdminAPI configures listener for the Redpanda Admin API
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-redpandaconfig[$$RedpandaConfig$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`port`* __integer__ | 
+| *`external`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-externalconnectivityconfig[$$ExternalConnectivityConfig$$]__ | External enables user to expose Redpanda admin API outside of a Kubernetes cluster. For more information please go to ExternalConnectivityConfig
+| *`tls`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-adminapitls[$$AdminAPITLS$$]__ | Configuration of TLS for Admin API
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-adminapitls"]
+==== AdminAPITLS 
+
+AdminAPITLS configures TLS for Redpanda Admin API 
+ If Enabled is set to true, one-way TLS verification is enabled. In that case, a key pair ('tls.crt', 'tls.key') and CA certificate 'ca.crt' are generated and stored in a Secret with the same name and namespace as the Redpanda cluster. 'ca.crt' must be used by a client as a truststore when communicating with Redpanda. 
+ If RequireClientAuth is set to true, two-way TLS verification is enabled. In that case, a client certificate is generated, which can be retrieved from the Secret named '<redpanda-cluster-name>-admin-api-client'. 
+ All TLS secrets are stored in the same namespace as the Redpanda cluster. 
+ Additionally all mentioned certificates beside PEM version will have JKS and PKCS#12 certificate. Both stores are protected with the password that is the same as the name of the Cluster custom resource.
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-adminapi[$$AdminAPI$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`enabled`* __boolean__ | 
+| *`requireClientAuth`* __boolean__ | 
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-cloudstorageconfig"]
+==== CloudStorageConfig 
+
+CloudStorageConfig configures the Data Archiving feature in Redpanda https://vectorized.io/docs/data-archiving
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterspec[$$ClusterSpec$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`enabled`* __boolean__ | Enables data archiving feature
+| *`accessKey`* __string__ | Cloud storage access key
+| *`secretKeyRef`* __link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#objectreference-v1-core[$$ObjectReference$$]__ | Reference to (Kubernetes) Secret containing the cloud storage secret key. SecretKeyRef must contain the name and namespace of the Secret. The Secret must contain a data entry of the form: data[<SecretKeyRef.Name>] = <secret key>
+| *`region`* __string__ | Cloud storage region
+| *`bucket`* __string__ | Cloud storage bucket
+| *`reconciliationIntervalMs`* __integer__ | Reconciliation period (default - 10s)
+| *`maxConnections`* __integer__ | Number of simultaneous uploads per shard (default - 20)
+| *`disableTLS`* __boolean__ | Disable TLS (can be used in tests)
+| *`trustfile`* __string__ | Path to certificate that should be used to validate server certificate
+| *`apiEndpoint`* __string__ | API endpoint for data storage
+| *`apiEndpointPort`* __integer__ | Used to override TLS port (443)
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-cluster"]
+==== Cluster 
+
+Cluster is the Schema for the clusters API
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterlist[$$ClusterList$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`apiVersion`* __string__ | `redpanda.vectorized.io/v1alpha1`
+| *`kind`* __string__ | `Cluster`
+| *`metadata`* __link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#objectmeta-v1-meta[$$ObjectMeta$$]__ | Refer to Kubernetes API documentation for fields of `metadata`.
+
+| *`spec`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterspec[$$ClusterSpec$$]__ | 
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterlist"]
+==== ClusterList 
+
+ClusterList contains a list of Cluster
+
+
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`apiVersion`* __string__ | `redpanda.vectorized.io/v1alpha1`
+| *`kind`* __string__ | `ClusterList`
+| *`metadata`* __link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#listmeta-v1-meta[$$ListMeta$$]__ | Refer to Kubernetes API documentation for fields of `metadata`.
+
+| *`items`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-cluster[$$Cluster$$]__ | 
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterspec"]
+==== ClusterSpec 
+
+ClusterSpec defines the desired state of Cluster
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-cluster[$$Cluster$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`annotations`* __object (keys:string, values:string)__ | If specified, Redpanda Pod annotations
+| *`image`* __string__ | Image is the fully qualified name of the Redpanda container
+| *`version`* __string__ | Version is the Redpanda container tag
+| *`replicas`* __integer__ | Replicas determine how big the cluster will be.
+| *`resources`* __link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#resourcerequirements-v1-core[$$ResourceRequirements$$]__ | Resources used by redpanda process running in container. Beware that there are multiple containers running in the redpanda pod and these can be enabled/disabled and configured from the `sidecars` field. These containers have separate resources settings and the amount of resources assigned to these containers will be required on the cluster on top of the resources defined here
+| *`sidecars`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-sidecars[$$Sidecars$$]__ | Sidecars is list of sidecars run alongside redpanda container
+| *`configuration`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-redpandaconfig[$$RedpandaConfig$$]__ | Configuration represent redpanda specific configuration
+| *`tolerations`* __link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#toleration-v1-core[$$Toleration$$] array__ | If specified, Redpanda Pod tolerations
+| *`nodeSelector`* __object (keys:string, values:string)__ | If specified, Redpanda Pod node selectors. For reference please visit https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node
+| *`storage`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-storagespec[$$StorageSpec$$]__ | Storage spec for cluster
+| *`cloudStorage`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-cloudstorageconfig[$$CloudStorageConfig$$]__ | Cloud storage configuration for cluster
+| *`superUsers`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-superuser[$$Superuser$$] array__ | List of superusers
+| *`enableSasl`* __boolean__ | SASL enablement flag
+| *`additionalConfiguration`* __object (keys:string, values:string)__ | For configuration parameters not exposed, a map can be provided for string values. Such values are passed transparently to Redpanda. The key format is "<subsystem>.field", e.g., 
+ additionalConfiguration:   redpanda.enable_idempotence: "true"   redpanda.default_topic_partitions: "3"   pandaproxy_client.produce_batch_size_bytes: "2097152" 
+ Notes: 1. versioning is not supported for map keys 2. key names not supported by Redpanda will lead to failure on start up 3. updating this map requires a manual restart of the Redpanda pods. Please be aware of sync period when one Redpandais POD is restarted 4. cannot have keys that conflict with existing struct fields - it leads to panic 
+ By default if Replicas is 3 or more and redpanda.default_topic_partitions is not set default webhook is setting redpanda.default_topic_partitions to 3.
+| *`dnsTrailingDotDisabled`* __boolean__ | DNSTrailingDotDisabled gives ability to turn off the fully-qualified DNS name. http://www.dns-sd.org/trailingdotsindomainnames.html
+|===
+
+
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-externalconnectivityconfig"]
+==== ExternalConnectivityConfig 
+
+ExternalConnectivityConfig adds listener that can be reached outside of a kubernetes cluster. The Service type NodePort will be used to create unique ports on each Kubernetes nodes. Those nodes need to be reachable from the client perspective. Setting up any additional resources in cloud or premise is the responsibility of the Redpanda operator user e.g. allow to reach the nodes by creating new rule in AWS security group. Inside the container the Configuration.KafkaAPI.Port + 1 will be used as a external listener. This port is tight to the autogenerated host port. The collision between Kafka external, Kafka internal, Admin, Pandaproxy, Schema Registry and RPC port is checked in the webhook.
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-adminapi[$$AdminAPI$$]
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-kafkaapi[$$KafkaAPI$$]
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-pandaproxyapi[$$PandaproxyAPI$$]
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistryapi[$$SchemaRegistryAPI$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`enabled`* __boolean__ | Enabled enables the external connectivity feature
+| *`subdomain`* __string__ | Subdomain can be used to change the behavior of an advertised KafkaAPI. Each broker advertises Kafka API as follows BROKER_ID.SUBDOMAIN:EXTERNAL_KAFKA_API_PORT. If Subdomain is empty then each broker advertises Kafka API as PUBLIC_NODE_IP:EXTERNAL_KAFKA_API_PORT. If TLS is enabled then this subdomain will be requested as a subject alternative name.
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-kafkaapi"]
+==== KafkaAPI 
+
+KafkaAPI configures listener for the Kafka API
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-redpandaconfig[$$RedpandaConfig$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`port`* __integer__ | 
+| *`external`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-externalconnectivityconfig[$$ExternalConnectivityConfig$$]__ | External enables user to expose Redpanda nodes outside of a Kubernetes cluster. For more information please go to ExternalConnectivityConfig
+| *`tls`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-kafkaapitls[$$KafkaAPITLS$$]__ | Configuration of TLS for Kafka API
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-kafkaapitls"]
+==== KafkaAPITLS 
+
+KafkaAPITLS configures TLS for redpanda Kafka API 
+ If Enabled is set to true, one-way TLS verification is enabled. In that case, a key pair ('tls.crt', 'tls.key') and CA certificate 'ca.crt' are generated and stored in a Secret with the same name and namespace as the Redpanda cluster. 'ca.crt', must be used by a client as a trustore when communicating with Redpanda. 
+ If RequireClientAuth is set to true, two-way TLS verification is enabled. In that case, a node and three client certificates are created. The node certificate is used by redpanda nodes. 
+ The three client certificates are the following: 1. operator client certificate is for internal use of this kubernetes operator 2. admin client certificate is meant to be used by your internal infrastructure, other than operator. It's possible that you might not need this client certificate in your setup. The client certificate can be retrieved from the Secret named '<redpanda-cluster-name>-admin-client'. 3. user client certificate is available for Redpanda users to call KafkaAPI. The client certificate can be retrieved from the Secret named '<redpanda-cluster-name>-user-client'. 
+ All TLS secrets are stored in the same namespace as the Redpanda cluster. 
+ Additionally all mentioned certificates beside PEM version will have JKS and PKCS#12 certificate. Both stores are protected with the password that is the same as the name of the Cluster custom resource.
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-kafkaapi[$$KafkaAPI$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`enabled`* __boolean__ | 
+| *`issuerRef`* __ObjectReference__ | References cert-manager Issuer or ClusterIssuer. When provided, this issuer will be used to issue node certificates. Typically you want to provide the issuer when a generated self-signed one is not enough and you need to have a verifiable chain with a proper CA certificate.
+| *`nodeSecretRef`* __link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#objectreference-v1-core[$$ObjectReference$$]__ | If provided, operator uses certificate in this secret instead of issuing its own node certificate. The secret is expected to provide the following keys: 'ca.crt', 'tls.key' and 'tls.crt' If NodeSecretRef points to secret in different namespace, operator will duplicate the secret to the same namespace as redpanda CRD to be able to mount it to the nodes
+| *`requireClientAuth`* __boolean__ | Enables two-way verification on the server side. If enabled, all Kafka API clients are required to have a valid client certificate.
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-nodeslist"]
+==== NodesList 
+
+NodesList shows where client of Cluster custom resource can reach various listeners of Redpanda cluster
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterstatus[$$ClusterStatus$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`internal`* __string array__ | 
+| *`external`* __string array__ | 
+| *`externalAdmin`* __string array__ | 
+| *`externalPandaproxy`* __string array__ | 
+| *`pandaproxyIngress`* __string__ | 
+| *`schemaRegistry`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistrystatus[$$SchemaRegistryStatus$$]__ | 
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-pandaproxyapi"]
+==== PandaproxyAPI 
+
+PandaproxyAPI configures listener for the Pandaproxy API
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-redpandaconfig[$$RedpandaConfig$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`port`* __integer__ | 
+| *`external`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-externalconnectivityconfig[$$ExternalConnectivityConfig$$]__ | External enables user to expose Redpanda nodes outside of a Kubernetes cluster. For more information please go to ExternalConnectivityConfig
+| *`tls`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-pandaproxyapitls[$$PandaproxyAPITLS$$]__ | Configuration of TLS for Pandaproxy API
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-pandaproxyapitls"]
+==== PandaproxyAPITLS 
+
+PandaproxyAPITLS configures the TLS of the Pandaproxy API 
+ If Enabled is set to true, one-way TLS verification is enabled. In that case, a key pair ('tls.crt', 'tls.key') and CA certificate 'ca.crt' are generated and stored in a Secret named '<redpanda-cluster-name>-proxy-api-node' and namespace as the Redpanda cluster. 'ca.crt' must be used by a client as a truststore when communicating with Redpanda. 
+ If RequireClientAuth is set to true, two-way TLS verification is enabled. In that case, a client certificate is generated, which can be retrieved from the Secret named '<redpanda-cluster-name>-proxy-api-client'. 
+ All TLS secrets are stored in the same namespace as the Redpanda cluster. 
+ Additionally all mentioned certificates beside PEM version will have JKS and PKCS#12 certificate. Both stores are protected with the password that is the same as the name of the Cluster custom resource.
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-pandaproxyapi[$$PandaproxyAPI$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`enabled`* __boolean__ | 
+| *`requireClientAuth`* __boolean__ | 
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-redpandaconfig"]
+==== RedpandaConfig 
+
+RedpandaConfig is the definition of the main configuration
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterspec[$$ClusterSpec$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`rpcServer`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-socketaddress[$$SocketAddress$$]__ | 
+| *`kafkaApi`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-kafkaapi[$$KafkaAPI$$] array__ | 
+| *`adminApi`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-adminapi[$$AdminAPI$$] array__ | 
+| *`pandaproxyApi`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-pandaproxyapi[$$PandaproxyAPI$$] array__ | 
+| *`schemaRegistry`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistryapi[$$SchemaRegistryAPI$$]__ | 
+| *`developerMode`* __boolean__ | 
+| *`groupTopicPartitions`* __integer__ | Number of partitions in the internal group membership topic
+| *`autoCreateTopics`* __boolean__ | Enable auto-creation of topics. Reference https://kafka.apache.org/documentation/#brokerconfigs_auto.create.topics.enable
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistryapi"]
+==== SchemaRegistryAPI 
+
+SchemaRegistryAPI configures the schema registry API
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-redpandaconfig[$$RedpandaConfig$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`port`* __integer__ | Port will set the schema registry listener port in Redpanda configuration. If not set the default will be 8081
+| *`external`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-externalconnectivityconfig[$$ExternalConnectivityConfig$$]__ | External enables user to expose Redpanda nodes outside of a Kubernetes cluster. For more information please go to ExternalConnectivityConfig
+| *`tls`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistryapitls[$$SchemaRegistryAPITLS$$]__ | TLS is the configuration for schema registry
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistryapitls"]
+==== SchemaRegistryAPITLS 
+
+SchemaRegistryAPITLS configures the TLS of the Pandaproxy API 
+ If Enabled is set to true, one-way TLS verification is enabled. In that case, a key pair ('tls.crt', 'tls.key') and CA certificate 'ca.crt' are generated and stored in a Secret named '<redpanda-cluster-name>-schema-registry-node' and namespace as the Redpanda cluster. 'ca.crt' must be used by a client as a truststore when communicating with Schema registry. 
+ If RequireClientAuth is set to true, two-way TLS verification is enabled. In that case, a client certificate is generated, which can be retrieved from the Secret named '<redpanda-cluster-name>-schema-registry-client'. 
+ All TLS secrets are stored in the same namespace as the Redpanda cluster. 
+ Additionally all mentioned certificates beside PEM version will have JKS and PKCS#12 certificate. Both stores are protected with the password that is the same as the name of the Cluster custom resource.
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistryapi[$$SchemaRegistryAPI$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`enabled`* __boolean__ | 
+| *`requireClientAuth`* __boolean__ | 
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-schemaregistrystatus"]
+==== SchemaRegistryStatus 
+
+SchemaRegistryStatus reports addresses where schema registry can be reached
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-nodeslist[$$NodesList$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`internal`* __string__ | 
+| *`external`* __string__ | External address should be registered in DNS provider using all public IP of a nodes that Redpanda is scheduled on. 
+ The External is empty when subdomain is not provided.
+| *`externalNodeIPs`* __string array__ | ExternalNodeIPs is only filled when the Schema Registry external connectivity feature flag is enabled, but the subdomain is empty. This gives user ability to register all addresses individually in DNS provider of choice.
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-sidecar"]
+==== Sidecar 
+
+Sidecar is a container running alongside redpanda, there's couple of them added by default via defaulting webhook
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-sidecars[$$Sidecars$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`enabled`* __boolean__ | Enabled if false, the sidecar won't be added to the pod running redpanda node
+| *`resources`* __link:https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.15/#resourcerequirements-v1-core[$$ResourceRequirements$$]__ | Resources are resource requirements and limits for the container running this sidecar. For the default sidecars this is defaulted
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-sidecars"]
+==== Sidecars 
+
+Sidecars is definition of sidecars running alongside redpanda process
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterspec[$$ClusterSpec$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`rpkStatus`* __xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-sidecar[$$Sidecar$$]__ | RpkStatus is sidecar running rpk status collecting status information from the running node
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-socketaddress"]
+==== SocketAddress 
+
+SocketAddress provide the way to configure the port
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-redpandaconfig[$$RedpandaConfig$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`port`* __integer__ | 
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-storagespec"]
+==== StorageSpec 
+
+StorageSpec defines the storage specification of the Cluster
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterspec[$$ClusterSpec$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`capacity`* __Quantity__ | Storage capacity requested
+| *`storageClassName`* __string__ | Storage class name - https://kubernetes.io/docs/concepts/storage/storage-classes/
+|===
+
+
+[id="{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-superuser"]
+==== Superuser 
+
+Superuser has full access to the Redpanda cluster
+
+.Appears In:
+****
+- xref:{anchor_prefix}-github-com-vectorizedio-redpanda-src-go-k8s-apis-redpanda-v1alpha1-clusterspec[$$ClusterSpec$$]
+****
+
+[cols="25a,75a", options="header"]
+|===
+| Field | Description
+| *`username`* __string__ | 
+|===
+
+
+
+
