@@ -23,18 +23,21 @@ spec:
      - port: 9092
      - external:
         enabled: true
+        subdomain: "broker-ip.domain.com"
        tls:
         enabled: true
     pandaproxyApi:
      - port: 8082
      - external:
         enabled: true
+        subdomain: "broker-ip.domain.com"
        tls:
         enabled: true
     adminApi:
     - port: 9644
     - external:
        enabled: true
+       subdomain: "broker-ip.domain.com"
       tls:
        enabled: true
     developerMode: true
