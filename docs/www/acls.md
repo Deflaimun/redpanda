@@ -115,22 +115,88 @@ After you change the config, restart Redpanda service for changes to take effect
 
   </tab>
   <tab id="Docker Container">
-  To access the files inside the container, first you have to enter the container.
+  To change these configurations you can add this part in your docker-compose file:
 
-  You can do that by running:
+```bash 
+#start of config
+
+    command:
+    - redpanda
+    - start
+    - --set redpanda.enable_sasl=true
+    - --set redpanda.superusers=["admin"]
+
+#rest of config
+```
+
+  To check if they were applied successfully, open a bash for the container:
 
 ```bash
   docker exec -it <name-of-container> bash
 ```
 
 Change `<name-of-container>` for your container and execute the command. 
-Then go to the same directory as a local redpanda config:
+Then run `cat` to check the config content:
 
 ```bash
-  /etc/redpanda/redpanda.yaml
-```
+  cat /etc/redpanda/redpanda.yaml
+``` 
 
-After you finish it, restart the container for changes to take effect. 
+If everything is correct, you should see something like this:
+
+```bash
+config_file: /etc/redpanda/redpanda.yaml
+node_uuid: ma7ms2Ut3a8E65RHJxh9kg3AcC4ocyLB3JfLCdkHtwY7PC6T3
+pandaproxy: {}
+redpanda:
+  admin:
+  - address: 0.0.0.0
+    port: 9644
+  advertised_kafka_api:
+  - address: redpanda
+    name: PLAINTEXT
+    port: 29092
+  - address: localhost
+    name: OUTSIDE
+    port: 9092
+  auto_create_topics_enabled: true
+  data_directory: /var/lib/redpanda/data
+  developer_mode: true
+  enable_sasl: true
+  kafka_api:
+  - address: 0.0.0.0
+    name: PLAINTEXT
+    port: 29092
+  - address: 0.0.0.0
+    name: OUTSIDE
+    port: 9092
+  node_id: 0
+  rpc_server:
+    address: 0.0.0.0
+    port: 33145
+  seed_servers: []
+  superusers:
+  - admin
+rpk:
+  coredump_dir: /var/lib/redpanda/coredump
+  enable_memory_locking: false
+  enable_usage_stats: true
+  overprovisioned: true
+  tune_aio_events: false
+  tune_ballast_file: false
+  tune_clocksource: false
+  tune_coredump: false
+  tune_cpu: false
+  tune_disk_irq: false
+  tune_disk_nomerges: false
+  tune_disk_scheduler: false
+  tune_disk_write_cache: false
+  tune_fstrim: false
+  tune_network: false
+  tune_swappiness: false
+  tune_transparent_hugepages: false
+schema_registry: {}
+```
 
   </tab>
   <tab id="Kubernetes ">
