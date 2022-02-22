@@ -1,178 +1,190 @@
 {
-    "apiVersion": "0.0.1",
-    "swaggerVersion": "1.2",
     "basePath": "/v1",
-    "resourcePath": "/brokers",
-    "produces": [
-        "application/json"
-    ],
-    "apis": [
-        {
-            "path": "/v1/cluster_view",
-            "operations": [
-                {
-                    "method": "GET",
-                    "summary": "Get cluster view",
-                    "type": "cluster_view",
-                    "nickname": "get_cluster_view",
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": []
-                }
-            ]
-        },
-        {
-            "path": "/v1/brokers",
-            "operations": [
-                {
-                    "method": "GET",
-                    "summary": "Get a list of brokers",
-                    "type": "array",
-                    "items": {
-                        "type": "broker"
-                    },
-                    "nickname": "get_brokers",
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": []
-                }
-            ]
-        },
-        {
-            "path": "/v1/brokers/{id}",
-            "operations": [
-                {
-                    "method": "GET",
-                    "summary": "Get broker",
-                    "type": "broker",
-                    "nickname": "get_broker",
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": [
-                        {
-                            "name": "id",
-                            "in": "path",
-                            "required": true,
-                            "type": "long"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/v1/brokers/{id}/decommission",
-            "operations": [
-                {
-                    "method": "PUT",
-                    "summary": "decommission broker",
-                    "type": "void",
-                    "nickname": "decommission",
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": [
-                        {
-                            "name": "id",
-                            "in": "path",
-                            "required": true,
-                            "type": "long"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/v1/brokers/{id}/recommission",
-            "operations": [
-                {
-                    "method": "PUT",
-                    "summary": "recommission broker",
-                    "type": "void",
-                    "nickname": "recommission",
-                    "produces": [
-                        "application/json"
-                    ],
-                    "parameters": [
-                        {
-                            "name": "id",
-                            "in": "path",
-                            "required": true,
-                            "type": "long"
-                        }
-                    ]
-                }
-            ]
+    "definitions": {
+      "broker": {
+        "description": "Broker information",
+        "properties": {
+          "disk_space": {
+            "description": "Array of disk space information per directory path. If disk space information is not available the array may be empty",
+            "items": {
+              "$ref": "#/definitions/disk_space_info"
+            },
+            "type": "array"
+          },
+          "is_alive": {
+            "description": "is node seen as alive by the cluster",
+            "type": "boolean"
+          },
+          "membership_status": {
+            "description": "Broker membership status",
+            "type": "string"
+          },
+          "node_id": {
+            "description": "node id",
+            "format": "int64",
+            "type": "integer"
+          },
+          "num_cores": {
+            "description": "cores",
+            "format": "int64",
+            "type": "integer"
+          },
+          "version": {
+            "description": "Redpanda version",
+            "type": "string"
+          }
         }
-    ],
-    "models": {
-        "cluster_view": {
-            "id": "cluster_view",
-            "description": "Cluster view",
-            "properties": {
-                "version": {
-                    "type": "long",
-                    "description": "cluster view version"
-                },
-                "brokers": {
-                    "type": "array",
-                    "items": {
-                        "type": "broker"
-                    }
-                }
-            }
-        },
-        "broker": {
-            "id": "broker",
-            "description": "Broker information",
-            "properties": {
-                "node_id": {
-                    "type": "long",
-                    "description": "node id"
-                },
-                "num_cores": {
-                    "type": "long",
-                    "description": "cores"
-                },
-                "membership_status": {
-                    "type": "string",
-                    "description": "Broker membership status"
-                },
-                "is_alive": {
-                    "type": "boolean",
-                    "description": "is node seen as alive by the cluster"
-                },
-                "disk_space": {
-                    "type": "array",
-                    "items": {
-                        "type": "disk_space_info"
-                    },
-                    "description": "Array of disk space information per directory path. If disk space information is not available the array may be empty"
-                },
-                "version": {
-                    "type": "string",
-                    "description": "Redpanda version"
-                }
-            }
-        },
-        "disk_space_info": {
-            "id": "disk_space_info",
-            "properties": {
-                "path": {
-                    "type": "string",
-                    "description": "data directory path"
-                },
-                "free": {
-                    "type": "long",
-                    "description": "free space bytes"
-                },
-                "total": {
-                    "type": "long",
-                    "description": "total space bytes"
-                }
-            }
+      },
+      "cluster_view": {
+        "description": "Cluster view",
+        "properties": {
+          "brokers": {
+            "items": {
+              "$ref": "#/definitions/broker"
+            },
+            "type": "array"
+          },
+          "version": {
+            "description": "cluster view version",
+            "format": "int64",
+            "type": "integer"
+          }
         }
-    }
-}
+      },
+      "disk_space_info": {
+        "properties": {
+          "free": {
+            "description": "free space bytes",
+            "format": "int64",
+            "type": "integer"
+          },
+          "path": {
+            "description": "data directory path",
+            "type": "string"
+          },
+          "total": {
+            "description": "total space bytes",
+            "format": "int64",
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "host": "raw.githubusercontent.com",
+    "info": {
+      "title": "raw.githubusercontent.com",
+      "version": "0.0.1"
+    },
+    "paths": {
+      "/v1/brokers": {
+        "get": {
+          "operationId": "get_brokers",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "No response was specified",
+              "schema": {
+                "items": {
+                  "$ref": "#/definitions/broker"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "summary": "Get a list of brokers"
+        }
+      },
+      "/v1/brokers/{id}": {
+        "get": {
+          "operationId": "get_broker",
+          "parameters": [
+            {
+              "format": "int64",
+              "name": "id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "No response was specified",
+              "schema": {
+                "$ref": "#/definitions/broker"
+              }
+            }
+          },
+          "summary": "Get broker"
+        }
+      },
+      "/v1/brokers/{id}/decommission": {
+        "put": {
+          "operationId": "decommission",
+          "parameters": [
+            {
+              "format": "int64",
+              "name": "id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "No response was specified"
+            }
+          },
+          "summary": "decommission broker"
+        }
+      },
+      "/v1/brokers/{id}/recommission": {
+        "put": {
+          "operationId": "recommission",
+          "parameters": [
+            {
+              "format": "int64",
+              "name": "id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "No response was specified"
+            }
+          },
+          "summary": "recommission broker"
+        }
+      },
+      "/v1/cluster_view": {
+        "get": {
+          "operationId": "get_cluster_view",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "No response was specified",
+              "schema": {
+                "$ref": "#/definitions/cluster_view"
+              }
+            }
+          },
+          "summary": "Get cluster view"
+        }
+      }
+    },
+    "schemes": [
+      "https"
+    ],
+    "swagger": "2.0"
+  }
