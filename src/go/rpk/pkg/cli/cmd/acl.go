@@ -82,7 +82,7 @@ func NewACLCommand(fs afero.Fs, mgr config.Manager) *cobra.Command {
 
 const helpACLs = `Manage ACLs and SASL users.
 
-This command space creates, lists, and deletes ACLs, as well as creates SASL
+This command creates, lists, and deletes ACLs, as well as creates SASL
 users. The help text below is specific to ACLs. To learn about SASL users,
 check the help text under the "user" command.
 
